@@ -4,6 +4,8 @@
     ![Hình 0](./images/Hinh0.png)
     + Thêm topic cần Subcirbe và chọn QoS tương ứng
     ![Hình 0_1](./images/Hinh0_1.png)
+    + Dữ liệu nhận về sẽ được hiển thị bên dưới
+    + Có thế sử dụng phần mềm MQTTX để kết nối, giám sát, kiểm thử các hoạt động trong hệ thống MQTT 
 - Dùng thư viện PubSubClient trên ESP32 kết nối với một MQTT Broker HiveMQ.
 - Sử dụng thư viện Ticker, một thư viện chuẩn trong Arduino để gọi hàm publish một cách đều đặn và bất đồng bộ, mỗi giây (1s) một lần:
     + Mã: `mqttPulishTicker.attach(1, mqttPublish)`
