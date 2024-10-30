@@ -1,6 +1,10 @@
 ## Bố trí thí nghiệm 
 
 - Dùng thư viện PubSubClient trên ESP32 kết nối với một MQTT Broker HiveMQ Cloud.
+    + Sau khi tao thành công 1 broker miễn phí trên HiveMQ, tiếp tục tạo 1 username và password rồi Connect 
+    ![Hình 0](./images/Hinh0.png)
+    + Thêm topic cần Subcirbe và chọn QoS tương ứng
+    ![Hình 0_1](./images/Hinh0_1.png)
 - Sử dụng thư viện Ticker, một thư viện chuẩn trong Arduino để gọi hàm publish một cách đều đặn và bất đồng bộ, mỗi giây (1s) một lần:
     + Mã: `mqttPulishTicker.attach(1, mqttPublish)`
     + Tài liệu về Ticker: https://docs.arduino.cc/libraries/ticker/, https://github.com/espressif/arduino-esp32/blob/master/libraries/Ticker/src/Ticker.h 
