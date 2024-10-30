@@ -3,7 +3,7 @@
 
 namespace WiFiSecrets
 {
-    const char *ssid = "Tunam";        // Thay bằng SSID Wi-Fi
+    const char *ssid = "Tunam";        
     const char *pass = "tunam123456";  
 }
 

@@ -56,21 +56,21 @@ void mqttReconnect()
         Serial.println("Attempting MQTT connection...");
         String client_id = "esp32-client-";
         client_id += String(WiFi.macAddress());
-        if (mqttClient.connect(client_id.c_str(), MQTT::username, MQTT::password, lwt_topic, 1 /*QoS1*/, true, lwt_message))
+        if (mqttClient.connect(client_id.c_str(), MQTT::username, MQTT::password, echo_topic, 1 /*QoS1*/, true, lwt_message))
         {
             Serial.print(client_id);
             Serial.println(" connected");
             mqttClient.subscribe(echo_topic);
-            mqttClient.publish(lwt_topic, "online", true);
-            mqttClient.subscribe(lwt_topic);
-            mqttClient.publish(retained_topic, "This is retained message", true);
-            mqttClient.subscribe(retained_topic);
+            mqttClient.publish(echo_topic, "online", true);
+            //mqttClient.subscribe(lwt_topic);
+            //mqttClient.publish(retained_topic, "This is retained message", true);
+            //mqttClient.subscribe(retained_topic);
         }
         else
         {
             Serial.print("MTTT connect failed, rc=");
             Serial.print(mqttClient.state());
-            Serial.println(" try again in 1 seconds");
+            //Serial.println(" try again in 1 seconds");
             delay(1000);
         }
     }
