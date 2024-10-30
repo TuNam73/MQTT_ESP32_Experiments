@@ -4,7 +4,6 @@
 #include "wifi_connect.h"
 #include <WiFiClientSecure.h>
 #include "ca_cert.h"
-
 #include "secrets/mqtt.h"
 #include <PubSubClient.h>
 
@@ -15,6 +14,10 @@ namespace
     const char *ssid = WiFiSecrets::ssid;
     const char *password = WiFiSecrets::pass;
     const char *echo_topic = "esp32/echo_test";
+    const char *lwt_topic = "esp/status";
+    const char *lwt_message = "offline";
+    const char *retained_topic = "esp32/retained";
+    const char *non_retained_topic = "esp/non_retained";
     unsigned int publish_count = 0;
     uint16_t keepAlive = 15;    // seconds (default is 15)
     uint16_t socketTimeout = 5; // seconds (default is 15)
@@ -22,6 +25,9 @@ namespace
 
 WiFiClientSecure tlsClient;
 PubSubClient mqttClient(tlsClient);
+
+//WiFiClient espClient;
+//PubSubClient mqttClient(espClient);
 
 Ticker mqttPulishTicker;
 
@@ -50,11 +56,15 @@ void mqttReconnect()
         Serial.println("Attempting MQTT connection...");
         String client_id = "esp32-client-";
         client_id += String(WiFi.macAddress());
-        if (mqttClient.connect(client_id.c_str(), MQTT::username, MQTT::password))
+        if (mqttClient.connect(client_id.c_str(), MQTT::username, MQTT::password, lwt_topic, 1 /*QoS1*/, true, lwt_message))
         {
             Serial.print(client_id);
             Serial.println(" connected");
             mqttClient.subscribe(echo_topic);
+            mqttClient.publish(lwt_topic, "online", true);
+            mqttClient.subscribe(lwt_topic);
+            mqttClient.publish(retained_topic, "This is retained message", true);
+            mqttClient.subscribe(retained_topic);
         }
         else
         {

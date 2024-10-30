@@ -4,7 +4,7 @@
 #include "wifi_connect.h"
 #include <WiFiClientSecure.h>
 #include "ca_cert.h"
-
+//#include <WiFiClient.h>
 #include "secrets/mqtt.h"
 #include <PubSubClient.h>
 
@@ -22,6 +22,9 @@ namespace
 
 WiFiClientSecure tlsClient;
 PubSubClient mqttClient(tlsClient);
+
+//WiFiClient espClient;
+//PubSubClient mqttClient(espClient);
 
 Ticker mqttPulishTicker;
 
